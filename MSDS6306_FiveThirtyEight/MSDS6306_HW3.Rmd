@@ -1,0 +1,104 @@
+---
+title: "HW3"
+author: "Michael Tieu"
+date: "9/15/2018"
+output: 
+  html_document:
+    keep_rmd: true
+---
+
+# Question 1: GitHub Cloning
+### Git Command Code:
+```{r}
+#cd documents
+#cd Projects
+#cd MSDS6306
+#mkdir MSDS6306HW3
+#git clone https://github.com/awesomedata/awesome-public-datasets
+```
+
+# Question 2: Data Summary
+### a) Assigning the dataframe
+```{r}
+df <- read.csv('titanic.csv', header=TRUE)
+```
+
+### b)
+```{r}
+table(df$Sex)
+plot(table(df$Sex),main="Number of Females and Males Aboard Titanic", xlab="Gender",ylab="Count")
+```
+
+### c)
+```{r}
+df2 <- df[,c(2,6,10)]
+sapply(df2,mean,na.rm=TRUE)
+```
+
+#Question 3: Sleep Data
+### Parts a) through d):
+Question3 <- function(x)
+{
+  medianAge <- median(x$Age,na.rm=TRUE)
+  MinSleep <- min(x$Duration, na.rm = TRUE)
+  MaxSleep <- max(x$Duration, na.rm = TRUE)
+  MeanRSES <- mean(x$RSES, na.rm = TRUE)
+  sdRSES <- sd(x$RSES, na.rm = TRUE)
+  report <- data.frame(MedianAge=medianAge, SelfEsteem=MeanRSES/5, SE_SD=sdRSES/5, DurationRange=MaxSleep-MinSleep)
+  return(round(report, digits=2))
+}
+
+# Question 4: FiveThrtyEight
+### a)
+```{r}
+install.packages("fivethirtyeight")
+```
+
+### b)
+```{r}
+df <- (college_recent_grads)
+```
+
+### c)
+```{r}
+#https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/
+```
+
+### d)
+```{r}
+dim(df)
+colnames(df)
+```
+
+# Question 5: Data Summary
+### a)
+```{r}
+colnames(df)
+ncol(df)
+```
+
+### b)
+```{r}
+Major_Cat <- sapply(df$major_category,unique)
+Major_Count <- count(Major_Cat)
+```
+
+### c)
+```{r}
+par(las=2)
+barplot(Major_Count$freq, names.arg=Major_Count$x,horiz=TRUE, main="Frequency of College Majors",col='blue',xlab="Frequency",ylab="Majors",cex.names=0.3,space=0.3,cex.axis=0.75)
+```
+
+### d)
+```{r}
+write.csv(df,"FiveThirtyEight_CollegeGradData.csv", row.names=F)
+```
+
+cd documents
+cd projects
+mkdir MSDS_HW
+cd MSDS_HW
+git init
+
+Michaels-MBP:msds_hw mtieu$ echo 'This contains homework in class sections MSDS6371 and MSDS6306. For questions, contact mtieu@smu.edu' > README
+Michaels-MBP:msds_hw mtieu$ echo 'Sources for datasets and other external references will be provided in the appropriate folder.' >> README
