@@ -26,7 +26,7 @@ df <- read.csv('titanic.csv', header=TRUE)
 ### b)
 ```{r}
 table(df$Sex)
-plot(table(df$Sex),main="Number of Females and Males Aboard Titanic", xlab="Gender",ylab="Count")
+barplot(table(df$Sex),main="Number of Females and Males Aboard Titanic", xlab="Gender",ylab="Count")
 ```
 
 ### c)
@@ -35,8 +35,9 @@ df2 <- df[,c(2,6,10)]
 sapply(df2,mean,na.rm=TRUE)
 ```
 
-#Question 3: Sleep Data
+# Question 3: Sleep Data
 ### Parts a) through d):
+```{r} 
 Question3 <- function(x)
 {
   medianAge <- median(x$Age,na.rm=TRUE)
@@ -47,15 +48,24 @@ Question3 <- function(x)
   report <- data.frame(MedianAge=medianAge, SelfEsteem=MeanRSES/5, SE_SD=sdRSES/5, DurationRange=MaxSleep-MinSleep)
   return(round(report, digits=2))
 }
+```
+
+### e)
+```{r}
+sleep<- read.csv('sleep_data_01.csv')
+Question3(sleep)
+
+```
 
 # Question 4: FiveThrtyEight
 ### a)
 ```{r}
-install.packages("fivethirtyeight")
+#install.packages("fivethirtyeight")
 ```
 
 ### b)
 ```{r}
+library(fivethirtyeight)
 df <- (college_recent_grads)
 ```
 
@@ -79,6 +89,7 @@ ncol(df)
 
 ### b)
 ```{r}
+library(plyr)
 Major_Cat <- sapply(df$major_category,unique)
 Major_Count <- count(Major_Cat)
 ```
@@ -94,11 +105,52 @@ barplot(Major_Count$freq, names.arg=Major_Count$x,horiz=TRUE, main="Frequency of
 write.csv(df,"FiveThirtyEight_CollegeGradData.csv", row.names=F)
 ```
 
-cd documents
-cd projects
-mkdir MSDS_HW
-cd MSDS_HW
-git init
 
-Michaels-MBP:msds_hw mtieu$ echo 'This contains homework in class sections MSDS6371 and MSDS6306. For questions, contact mtieu@smu.edu' > README
-Michaels-MBP:msds_hw mtieu$ echo 'Sources for datasets and other external references will be provided in the appropriate folder.' >> README
+# Quetion 6: Codebook
+### a)
+```{r}
+#cd documents
+#cd projects
+#mkdir MSDS_HW
+#cd MSDS_HW
+#git init
+```
+
+### b)
+```{r}
+#echo 'This contains homework in class sections MSDS6371 and MSDS6306. For questions, contact mtieu@smu.edu' > README
+#echo 'Sources for datasets and other external references will be provided in the appropriate folder.' >> README
+#mkdir MSDS6306_FiveThirtyEight
+```
+
+### c)
+```{r}
+#cd MSDS6306_FiveThirtyEight
+#echo 'This folder contains my answers to the MSDS6306 Unit 3 Assignment.' > README
+#echo 'All sleep data was provided.' >> README
+#echo 'External data was extracted from the FiveThirtyEight source linked below.' >> README
+#echo 'https://github.com/rudeboybert/fivethirtyeight' >> README
+
+#cd ..
+#cd ..
+#cd MSDS6306
+#cd MSDS6306HW3
+#mv MSDS6306_HW3.Rmd /users/mtieu/documents/Projects/MSDS_HW/MSDS6306_FiveThirtyEight
+#mv FiveThirtyEight_CollegeGradData.csv /users/mtieu/documents/Projects/MSDS_HW/MSDS6306_FiveThirtyEight
+#cd ..
+#cd ..
+
+
+#cd MSDS_HW
+#git commit -m "first commit"
+#git remote add origin https://github.com/emteepastiche/MSDS_HW.git
+#git add README
+#git add MSDS6306_FiveThirtyEight/
+#git commit -m "first commit"
+#git push -u origin master
+```
+
+### d)
+```{r}
+#https://github.com/emteepastiche/MSDS_HW
+```
