@@ -23,13 +23,13 @@ output:
 df <- read.csv('titanic.csv', header=TRUE)
 ```
 
-### b)
+### b) Output of respective females and males aboard the Titanic
 ```{r}
 table(df$Sex)
 barplot(table(df$Sex),main="Number of Females and Males Aboard Titanic", xlab="Gender",ylab="Count")
 ```
 
-### c)
+### c) Using apply function to output means of Age, Fare, Survival
 ```{r}
 df2 <- df[,c(2,6,10)]
 sapply(df2,mean,na.rm=TRUE)
@@ -58,36 +58,36 @@ Question3(sleep)
 ```
 
 # Question 4: FiveThrtyEight
-### a)
+### a) Install the fivethirtyeight package
 ```{r}
 #install.packages("fivethirtyeight")
 ```
 
-### b)
+### b) Assign 22nd dataset to df
 ```{r}
 library(fivethirtyeight)
 df <- (college_recent_grads)
 ```
 
-### c)
+### c) Comment the related news story
 ```{r}
 #https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/
 ```
 
-### d)
+### d) Give dimensions and column names of the dataframe
 ```{r}
 dim(df)
 colnames(df)
 ```
 
 # Question 5: Data Summary
-### a)
+### a) Give the column names of the dataframe and number of columns but not rows
 ```{r}
 colnames(df)
 ncol(df)
 ```
 
-### b)
+### b) Generate count of each unique major_category in a dataframe
 ```{r}
 library(plyr)
 Major_Cat <- sapply(df$major_category,unique)
@@ -100,14 +100,14 @@ par(las=2)
 barplot(Major_Count$freq, names.arg=Major_Count$x,horiz=TRUE, main="Frequency of College Majors",col='blue',xlab="Frequency",ylab="Majors",cex.names=0.3,space=0.3,cex.axis=0.75)
 ```
 
-### d)
+### d) Write fivethirtyeight data to csv file
 ```{r}
 write.csv(df,"FiveThirtyEight_CollegeGradData.csv", row.names=F)
 ```
 
 
 # Quetion 6: Codebook
-### a)
+### a) Start a new repo on GitHub for MSDS homework
 ```{r}
 #cd documents
 #cd projects
@@ -116,14 +116,14 @@ write.csv(df,"FiveThirtyEight_CollegeGradData.csv", row.names=F)
 #git init
 ```
 
-### b)
+### b) Create README.md 
 ```{r}
-#echo 'This contains homework in class sections MSDS6371 and MSDS6306. For questions, contact mtieu@smu.edu' > README
-#echo 'Sources for datasets and other external references will be provided in the appropriate folder.' >> README
+#echo 'This contains homework in class sections MSDS6371 and MSDS6306. For questions, contact mtieu@smu.edu' > README.md
+#echo 'Sources for datasets and other external references will be provided in the appropriate folder.' >> README.md
 #mkdir MSDS6306_FiveThirtyEight
 ```
 
-### c)
+### c) Posting Rmd script, HTML, FiveThirtyEight data + README credit
 ```{r}
 #cd MSDS6306_FiveThirtyEight
 #echo 'This folder contains my answers to the MSDS6306 Unit 3 Assignment.' > README
@@ -140,6 +140,7 @@ write.csv(df,"FiveThirtyEight_CollegeGradData.csv", row.names=F)
 #cd ..
 #cd ..
 
+#HTML was not manually moved; I knit the file after completing HW.
 
 #cd MSDS_HW
 #git commit -m "first commit"
@@ -150,7 +151,7 @@ write.csv(df,"FiveThirtyEight_CollegeGradData.csv", row.names=F)
 #git push -u origin master
 ```
 
-### d)
+### d) Link to GitHub
 ```{r}
 #https://github.com/emteepastiche/MSDS_HW
 ```
