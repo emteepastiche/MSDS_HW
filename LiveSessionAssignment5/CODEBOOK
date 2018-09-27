@@ -1,0 +1,24 @@
+This folder contains the code to LiveSessionAssignmentFive - TidyData (Baby Names)
+Variables used here are:
+df: original dataframe with y2016 name data, overwitten with the elimination of a typo
+y2016 - the dataframe resulting from df
+y2015 - dataframe with 2015 name data
+final - merged y2015 and y2016 dataset
+FemalesOnly - search to omit male names
+
+Functions used were: 
+as.data.frame()
+as.character()
+as.integer()
+names()
+summary()
+str()
+grep()
+slice()
+merge()
+rowSums()
+order()
+which()
+write.csv()
+
+If there are any questions, my contact is mtieu@smu.edu

@@ -1,0 +1,39 @@
+---
+title: "Tieu_Michael_MSDS6306_HW5"
+author: "Michael Tieu"
+date: "9/26/2018"
+output: html_document:
+  keep_rmd: TRUE
+---
+
+```{r} 
+library(dplyr)
+df <- as.data.frame(read.csv2('yob2016.txt', header=FALSE, sep =";"))
+names(df) <- c("Name","Gender","Amount of Children")
+df$Name <- as.character(df$Name)
+df$Gender <- as.character(df$Gender)
+df$`Amount of Children` <- as.integer(df$`Amount of Children`)
+
+summary(df)
+str(df)
+
+grep("yyy*$", df$Name)
+df <- slice(df, -212)
+y2016 <- as.data.frame(df)
+
+
+y2015 <- as.data.frame(read.csv2('yob2015.txt', header = FALSE, sep = ","))
+names(y2015) <- c("Name","Gender","Amount of Children")
+
+
+final <- merge(y2015,y2016,by=c("Name","Gender"))
+
+
+
+final$Total <- rowSums(final[,c(3,4)], na.rm = TRUE)
+final <- final[,-(3:4)]
+final <- final[order(-final$Total),]
+
+FemalesOnly <- final$Gender!='M'
+head(final[which(FemalesOnly),],10)
+```
