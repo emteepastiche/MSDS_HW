@@ -2,38 +2,100 @@
 title: "Tieu_Michael_MSDS6306_HW5"
 author: "Michael Tieu"
 date: "9/26/2018"
-output: html_document:
-  keep_rmd: TRUE
+output: 
+  html_document:
+    keep_rmd: true
 ---
-
+# Question 1 - Data Munging
 ```{r} 
 library(dplyr)
+
+#Reading data file in
 df <- as.data.frame(read.csv2('yob2016.txt', header=FALSE, sep =";"))
+
+#Reassigning column names and classes
 names(df) <- c("Name","Gender","Amount of Children")
 df$Name <- as.character(df$Name)
 df$Gender <- as.character(df$Gender)
 df$`Amount of Children` <- as.integer(df$`Amount of Children`)
 
+#Summary and structure of original dataframe imported
 summary(df)
 str(df)
 
-grep("yyy*$", df$Name)
+#Locates the typo and eliminates the correct location
+df[grep("yyy*$", df$Name),]
 df <- slice(df, -212)
+
+#Saves the modified dataframe into y2016
 y2016 <- as.data.frame(df)
+```
 
-
+# Question 2 - Data Merging
+```{r}
+#Reads in y2015 data
 y2015 <- as.data.frame(read.csv2('yob2015.txt', header = FALSE, sep = ","))
+
+#Renames columns in y2015
 names(y2015) <- c("Name","Gender","Amount of Children")
 
-
+#Merges both datasets into 'final' by Name and Gender values
 final <- merge(y2015,y2016,by=c("Name","Gender"))
+```
 
-
-
+# Question 3 - Data Summary 
+```{r}
+#Creates new column that sums the total number of children and removes the separate count columns
 final$Total <- rowSums(final[,c(3,4)], na.rm = TRUE)
 final <- final[,-(3:4)]
+
+#Orders the dataframe by descending order based on Total column
 final <- final[order(-final$Total),]
 
+#Finds the indices where the Gender is 'F' and writes the top 10 to a csv file with specified columns
 FemalesOnly <- final$Gender!='M'
-head(final[which(FemalesOnly),],10)
+Top10GirlNames <- head(final[which(FemalesOnly),],10)
+Top10GirlNames
+write.csv(Top10GirlNames[,c(1,3)], file = "Top 10 Girl Names.csv")
+```
+
+# Question 4 - Upload to GitHub
+```{r}
+#cd livesessionassignment5
+
+#echo 'This folder contains the code to LiveSessionAssignmentFive - TidyData (Baby Names)' > CODEBOOK
+#echo 'Variables used here are:' >> CODEBOOK
+#echo 'df: original dataframe with y2016 name data, overwitten with the #elimination of a typo' >> CODEBOOK
+#echo 'y2016 - the dataframe resulting from df' >> CODEBOOK
+#echo 'y2015 - dataframe with 2015 name data' >> CODEBOOK
+#echo 'final - merged y2015 and y2016 dataset' >> CODEBOOK
+#echo 'FemalesOnly - search to omit male names' >> CODEBOOK
+#echo ''>> CODEBOOK
+#echo 'Functions used were: ' >> CODEBOOK
+#echo 'as.data.frame' >> CODEBOOK
+#echo 'as.character' >> CODEBOOK
+#echo 'as.integer' >> CODEBOOK
+#echo 'names()' >> CODEBOOK
+#echo 'summary()' >> CODEBOOK
+#echo 'str()' >> CODEBOOK
+#echo 'grep()' >> CODEBOOK
+#echo 'slice()' >> CODEBOOK
+#echo 'merge()' >> CODEBOOK
+#echo 'rowSums()' >> CODEBOOK
+#echo 'order()' >> CODEBOOK
+#echo 'which()' >> CODEBOOK
+#echo 'write.csv()' >> CODEBOOK
+#echo '' >> CODEBOOK
+#echo ' If there are any questions, my contact is mtieu@smu.edu' >> CODEBOOK
+
+#cd documents
+#cd projects
+#cd msds_hw
+#git init
+#git add LiveSessionAssignment5
+#git commit -m ‘commit’
+#git push
+
+
+#https://github.com/emteepastiche/MSDS_HW/tree/master/LiveSessionAssignment5
 ```
